@@ -1,0 +1,46 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+/**********************/
+/*                    */
+/*   setSignUpPage    */
+/*                    */
+/**********************/
+.sign-up-button {
+  height: 50px;
+  height: 50px;
+  background-color: green;
+}
+
+/********************/
+/*                  */
+/*   setHomepage    */
+/*                  */
+/********************/
+.header {
+  background-color: red;
+  height: 30px;
+  width: 100%;
+}
+
+.homepage {
+  display: flex;
+}
+
+.navigation {
+  background-color: lightgray;
+  height: 100%;
+  width: 25%;
+}
+
+.console {
+  height: 100%;
+  width: 50%;
+}
+
+.ad-space {
+  background-color: gray;
+  height: 100%;
+  width: 25%;
+}
