@@ -1,9 +1,5 @@
 // TODO This commit
-// add basic functionality:
-// name autopopulates based on user
-// groups autopopulates
-// friends autopopulates
-// all data is stored in local storage
+// log-out link takes you to signed out page
 
 var templateStrings = {
   signUpPage: '\
@@ -76,14 +72,14 @@ function clearScreen() {
 }
 
 // sets up Sign Up Page for new users
-function setSignUpPage() {
+function drawSignUpPage() {
   var htmlElements = document.body.innerHTML = templateStrings.signUpPage;
 
   document.body.querySelector('.sign-up-button').addEventListener('click', storeSignUpData);
 }
 
 // Stores name, email, and pw of new user in local storage, then calls
-// setHomepage to move user to dashboard
+// drawHomepage to move user to homepage
 function storeSignUpData() {
   var userName = document.querySelector('.user-name').value;
   localStorage.setItem('session.user', userName);
@@ -94,11 +90,13 @@ function storeSignUpData() {
   var userPassword = document.querySelector('.user-password').value;
   localStorage.setItem('session.password', userPassword);
 
-  setHomepage();
+  localStorage.setItem('session.known', 'true')
+
+  drawHomepage();
 }
 
 // sets up homepage
-function setHomepage() {
+function drawHomepage() {
   // clearScreen();
 
   var htmlStr = templateStrings.homePage.main;
@@ -110,6 +108,10 @@ function setHomepage() {
   var homepageElements = document.body.innerHTML = htmlStr;
 }
 
-setSignUpPage();
-
-// setHomepage();
+// check whether user has signed up already.  if so, go directly to homepage
+var isKnownUser = localStorage.getItem('session.known');
+if (isKnownUser === 'true') {
+  drawHomepage();
+} else {
+  drawSignUpPage();
+}
