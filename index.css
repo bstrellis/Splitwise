@@ -26,6 +26,8 @@ body {
   width: 100%;
 }
 
+.session-owner {}
+
 .homepage {
   display: flex;
 }
