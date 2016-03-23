@@ -1,5 +1,4 @@
-// TODO This commit
-// log-out link takes you to signed out page
+
 
 var templateStrings = {
   signUpPage: '\
@@ -63,7 +62,11 @@ var templateStrings = {
           <div class="ad-space"></div>\
         </div>\
       </div>'
-  }
+  },
+  logOutPage: '\
+    <div class="screen">\
+      <div>goodbye</div>\
+    </div>'
 };
 
 // removes all html nested within body element
@@ -106,6 +109,15 @@ function drawHomepage() {
   htmlStr = htmlStr.replace('{{user-name}}', userName);
 
   var homepageElements = document.body.innerHTML = htmlStr;
+
+  document.body.querySelector('.session-owner').addEventListener('click', logOut);
+}
+
+// logs user out of homepage and takes them to signed out page
+function logOut() {
+  clearScreen();
+  localStorage.removeItem('session.known');
+  document.body.innerHTML = templateStrings.logOutPage;
 }
 
 // check whether user has signed up already.  if so, go directly to homepage
