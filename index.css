@@ -19,6 +19,8 @@ body {
 /*                  */
 /********************/
 .header {
+  display: flex;
+  justify-content: space-around;
   background-color: red;
   height: 30px;
   width: 100%;
@@ -37,6 +39,12 @@ body {
 .console {
   height: 100%;
   width: 50%;
+}
+
+.console-shelf {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .ad-space {

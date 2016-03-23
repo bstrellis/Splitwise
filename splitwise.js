@@ -1,18 +1,25 @@
 // TODO THIS COMMIT
-// html and input fields for sign up page
-// movement to dashboard
+// add basic html to homepage
+// TODO Next commit
+// add basic functionality:
+// name autopopulates based on user
+// groups autopopulates
+// friends autopopulates
 
-// run when page first loads
-setSignUpPage();
+// run when page first loads - not running this now bc it's a pain
+// setSignUpPage();
 
 // sets up Sign Up Page for new users
 // TODO at some point: bypass sign up page for logged in user
 function setSignUpPage() {
-  var htmlElements = document.body.innerHTML = '<div class = "screen"><div>My name is...</div>\
-    <input class = "userName" type="text">\
-    <div>My email is...</div><input class = "userEmail" type="text">\
-    <div>My password is...</div><input class = "userPassword" type="text">\
-    <button class = "sign-up-button">sign up</button>\
+  var htmlElements = document.body.innerHTML = '\
+    <div class = "screen"><div>My name is...</div>\
+      <input class = "userName" type="text">\
+      <div>My email is...</div>\
+      <input class = "userEmail" type="text">\
+      <div>My password is...</div>\
+      <input class = "userPassword" type="text">\
+      <button class = "sign-up-button">sign up</button>\
     </div>';
 
   document.body.querySelector('.sign-up-button').addEventListener('click', storeSignUpData);
@@ -33,12 +40,58 @@ function storeSignUpData(){
 
 // sets up homepage
 function setHomepage() {
-  clearScreen();
+  // clearScreen();
 
-  var homepageElements = document.body.innerHTML = '<div class="screen"><div class="header"></div>\
-    <div class="homepage"><div class="navigation"></div>\
-    <div class="console"></div><div class="ad-space"></div></div></div>';
+  var homepageElements = document.body.innerHTML = '\
+    <div class="screen">\
+      <div class="header">\
+        <div>splitwise</div>\
+        <div>session owner</div>\
+      </div>\
+      <div class="homepage">\
+        <div class="navigation">\
+          <div>dashboard</div>\
+          <div>recent activity</div>\
+          <div>all expenses</div>\
+          <div>groups</div>\
+          <div>friends</div>\
+        </div>\
+        <div class="console">\
+          <div class = "console-shelf">\
+            <div>dashboard</div>\
+            <button>add a bill</button>\
+            <button>settle up</button>\
+          </div>\
+          <div class = "console-shelf">\
+            <div>\
+              <div>total balance</div>\
+              <div>$90</div>\
+            </div>\
+            <div>\
+              <div>you owe</div>\
+              <div>$90</div>\
+            </div>\
+            <div>\
+              <div>you are owed</div>\
+              <div>$90</div>\
+            </div>\
+          </div>\
+          <div class = "console-shelf">\
+            <div>YOU OWE</div>\
+            <div>listchart</div>\
+            <div>YOU ARE OWED</div>\
+          </div>\
+          <div class = "console-shelf">\
+            <div>YOU OWE item</div>\
+            <div>YOU ARE OWED item</div>\
+          </div>\
+        </div>\
+        <div class="ad-space"></div>\
+      </div>\
+    </div>';
 }
+
+setHomepage();
 
 // removes all html nested within body element
 function clearScreen() {
