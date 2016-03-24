@@ -2,15 +2,24 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+.screen {
+}
 /**********************/
 /*                    */
 /*   setSignUpPage    */
 /*                    */
 /**********************/
+.front-page-button {
+  height: 50px;
+  height: 50px;
+}
+
 .sign-up-button {
-  height: 50px;
-  height: 50px;
   background-color: green;
+}
+
+.log-in-button {
+  background-color: blue;
 }
 
 /********************/

@@ -1,8 +1,8 @@
+
 // TODO THIS COMMIT
-function to populate groups, bills, friends, any other needed data
-// TODO THIS COMMIT
-// find userID from email address, if it doesn't exist, go to sign up, if it does
-// go to homepage
+// modify log-in page to have sign-up and log-in component
+// function to check if user email is known and load user's homepage if it is
+// function to find attributes of userId associated with email
 
 function populateLocalStorage() {
   localStorage.setItem('group.0.name', '1461 Pine St');
@@ -49,13 +49,20 @@ function populateLocalStorage() {
 var templateStrings = {
   signUpPage: '\
     <div class="screen">\
-      <div>My name is...</div>\
-      <input class="user-name" type="text">\
-      <div>My email is...</div>\
-      <input class="user-email" type="text">\
-      <div>My password is...</div>\
-      <input class="user-password" type="text">\
-      <button class="sign-up-button">sign up</button>\
+      <div class="sign-up-segment">\
+        <div>My name is...</div>\
+        <input class="user-name" type="text">\
+        <div>My email is...</div>\
+        <input class="sign-up-user-email" type="text">\
+        <div>My password is...</div>\
+        <input class="user-password" type="text">\
+        <button class="sign-up-button front-page-button">sign up</button>\
+      </div>\
+      <div class="log-in-segment">\
+        <div>Im a known user and my email is...</div>\
+        <input class="log-in-user-email" type="text">\
+        <button class="log-in-button front-page-button">log in</button>\
+      </div>\
     </div>',
 
   homePage: {
@@ -125,6 +132,7 @@ function drawSignUpPage() {
   var htmlElements = document.body.innerHTML = templateStrings.signUpPage;
 
   document.body.querySelector('.sign-up-button').addEventListener('click', storeSignUpData);
+  document.body.querySelector('.log-in-button').addEventListener('click', findUserIdWithEmail);
 }
 
 // Stores name, email, and pw of new user in local storage, then calls
@@ -133,7 +141,7 @@ function storeSignUpData() {
   var userName = document.querySelector('.user-name').value;
   localStorage.setItem('session.user', userName);
 
-  var userEmail = document.querySelector('.user-email').value;
+  var userEmail = document.querySelector('.sign-up-user-email').value;
   localStorage.setItem('session.email', userEmail);
 
   var userPassword = document.querySelector('.user-password').value;
@@ -144,15 +152,72 @@ function storeSignUpData() {
   drawHomepage();
 }
 
-// sets up homepage
+
+// function
+// function LogIn() {
+//   // checks to see whether user email address is associated with a known User ID.
+//   // if it is, logs in and loads homepage with user's associated data
+//   // if not, prompts user to sign up with message
+//   var found = emailExistsInLocalStorage();
+//   if (found === true) {
+//     // assign session.user to
+//     drawHomepage();
+//     // populate username in logout button
+//     var userName = localStorage.getItem('session.user');
+//     htmlStr = htmlStr.replace('{{user-name}}', userName);
+//   }
+//     // populate homepage with user's information??
+//   } else {
+//   }
+// }
+
+// user puts in email in log-in field. sessionUserId is determined
+sessionUserId = null;
+function findUserIdWithEmail() {
+  var userEmail = document.querySelector('.log-in-user-email').value;
+  for (var i = 0; i < Infinity; i++) {
+    var key = 'user.' + i + '.email';
+    var value = localStorage.getItem(key);
+    if (userEmail === value) {
+      sessionUserId = i;
+      findAttributesOfSessionUserId();
+      drawHomepage();
+      break;
+    } else if (value === null) {
+      alert("Your email is not in our database! Please sign up.");
+      break;
+    }
+  }
+}
+
+// find all attributes of sessionUserId
+
+function findAttributesOfSessionUserId() {
+  var sessionUserNameKey = 'user.' + sessionUserId + '.name';
+  var sessionUserName = localStorage.getItem(sessionUserNameKey);
+
+  var sessionUserGroupIdsKey = 'user.' + sessionUserId + '.groupIds';
+  var sessionUserGroupIds = localStorage.getItem(sessionUserGroupIdsKey);
+}
+
+// // using sessionUserId  fields on homepage are autopopulated
+// function populateHomepageforSessionUserId() {
+//   // populate username in logout bar
+//   var sessionUserName = localStorage.getItem('sessionUser.name');
+//   htmlStr = htmlStr.replace('{{user-name}}', sessionUserName);
+//
+//   // populate groups
+//   // populate bills
+//   // populate payments
+//   //
+// }
+
+// sets up generic homepage
 function drawHomepage() {
   // clearScreen();
 
   var htmlStr = templateStrings.homePage.main;
   htmlStr = htmlStr.replace('{{console-content}}', templateStrings.homePage.dashboard);
-
-  var userName = localStorage.getItem('session.user');
-  htmlStr = htmlStr.replace('{{user-name}}', userName);
 
   var homepageElements = document.body.innerHTML = htmlStr;
 
@@ -172,6 +237,70 @@ if (isKnownUser === 'true') {
   drawHomepage();
 } else {
   drawSignUpPage();
+}
+
+// Return the number of the type of model specified.
+// For example, if there are two bills in local storage, then...
+//   getModelCount('bills') ==> 2
+function getModelCount(modelType) {
+  var numModels = 0;
+  for (var i = 0; i < Infinity; i++) {
+    var key = modelType + '.' + i + '.id';
+    var value = localStorage.getItem(key);
+    if (value === null) {
+      break;
+    } else {
+      numModels++;
+    }
+  }
+  return numModels;
+}
+
+// return bill if it belongs to user, otherwise, reject user's attempt
+function findBillWithIdForUser(id, user) {
+  var amountKey = 'bills.' + id + '.amount';
+  var dateKey = 'bills.' + id + '.date';
+  var groupIdKey = 'bills.' + id + '.groupId';
+  var nameKey = 'bills.' + id + '.name';
+
+  var groupIdOfBill = parseInt(localStorage.getItem(groupIdKey));
+  var userCanAccessBill = itemExistsInArray(groupIdOfBill, user.groupIds);
+  if (userCanAccessBill) {
+    return {
+      id: parseInt(id),
+      amount: parseInt(localStorage.getItem(amountKey)),
+      date: new Date(localStorage.getItem(dateKey)),
+      groupId: groupIdOfBill,
+      name: localStorage.getItem(nameKey)
+    };
+  } else {
+    throw new Error('Access denied!');
+  }
+}
+
+// does this thing exist?
+function itemExistsInArray(item, array) {
+  for (var i = 0; i < array.length; i++) {
+    if (item === array[i]) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// find all the bills!
+function findAllBillsForUser(user) {
+  var bills = [];
+
+  for (var i = 0; i < getModelCount('bills'); i++) {
+    var bill = findBillWithIdForUser(i, user);
+    if (itemExistsInArray(bill.groupId, user.groupIds)) {
+      bills.push(bill);
+    }
+  }
+
+  return bills;
 }
 
 // populate local storage when loading page
