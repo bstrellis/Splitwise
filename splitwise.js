@@ -1,51 +1,3 @@
-
-// TODO THIS COMMIT
-// modify log-in page to have sign-up and log-in component
-// function to check if user email is known and load user's homepage if it is
-// function to find attributes of userId associated with email
-
-function populateLocalStorage() {
-  localStorage.setItem('group.0.name', '1461 Pine St');
-  localStorage.setItem('group.1.name', 'Cali House Trip');
-  localStorage.setItem('group.2.name', 'Yosemite Camping Trip');
-
-  localStorage.setItem('bill.0.amount', '140.00');
-  localStorage.setItem('bill.0.date', 'January 13, 2016');
-  localStorage.setItem('bill.0.name', 'cheetos');
-  localStorage.setItem('bill.0.groupId', '0');
-  localStorage.setItem('bill.1.amount', '7.00');
-  localStorage.setItem('bill.1.date', 'February 3, 2016');
-  localStorage.setItem('bill.1.name', 'corn pops');
-  localStorage.setItem('bill.1.groupId', '1');
-  localStorage.setItem('bill.2.amount', '80.00');
-  localStorage.setItem('bill.2.date', 'March 22, 2016');
-  localStorage.setItem('bill.2.name', 'condoms');
-  localStorage.setItem('bill.2.groupId', '2');
-
-  localStorage.setItem('user.0.email', 'bob@bob.com');
-  localStorage.setItem('user.0.name', 'bob');
-  localStorage.setItem('user.0.groupIds', '0,1');
-  localStorage.setItem('user.1.email', 'joe@joe.com');
-  localStorage.setItem('user.1.name', 'joe');
-  localStorage.setItem('user.1.groupIds', '0,1');
-  localStorage.setItem('user.2.email', 'terrance@terrance.com');
-  localStorage.setItem('user.2.name', 'terrance');
-  localStorage.setItem('user.2.groupIds', '0,2');
-
-  localStorage.setItem('payment.0.amount', '130.00');
-  localStorage.setItem('payment.0.date', 'January 16, 2016');
-  localStorage.setItem('payment.0.billId', '0');
-  localStorage.setItem('payment.0.userId', '1');
-  localStorage.setItem('payment.1.amount', '30.00');
-  localStorage.setItem('payment.1.date', 'February 28, 2016');
-  localStorage.setItem('payment.1.billId', '1');
-  localStorage.setItem('payment.1.userId', '0');
-  localStorage.setItem('payment.2.amount', '100.00');
-  localStorage.setItem('payment.2.date', 'March 27, 2016');
-  localStorage.setItem('payment.2.billId', '2');
-  localStorage.setItem('payment.2.userId', '2');
-}
-
 var templateStrings = {
   signUpPage: '\
     <div class="screen">\
@@ -122,6 +74,48 @@ var templateStrings = {
     </div>'
 };
 
+function populateLocalStorage() {
+  localStorage.setItem('group.0.name', '1461 Pine St');
+  localStorage.setItem('group.1.name', 'Cali House Trip');
+  localStorage.setItem('group.2.name', 'Yosemite Camping Trip');
+
+  localStorage.setItem('bill.0.amount', '140.00');
+  localStorage.setItem('bill.0.date', 'January 13, 2016');
+  localStorage.setItem('bill.0.name', 'cheetos');
+  localStorage.setItem('bill.0.groupId', '0');
+  localStorage.setItem('bill.1.amount', '7.00');
+  localStorage.setItem('bill.1.date', 'February 3, 2016');
+  localStorage.setItem('bill.1.name', 'corn pops');
+  localStorage.setItem('bill.1.groupId', '1');
+  localStorage.setItem('bill.2.amount', '80.00');
+  localStorage.setItem('bill.2.date', 'March 22, 2016');
+  localStorage.setItem('bill.2.name', 'condoms');
+  localStorage.setItem('bill.2.groupId', '2');
+
+  localStorage.setItem('user.0.email', 'bob@bob.com');
+  localStorage.setItem('user.0.name', 'bob');
+  localStorage.setItem('user.0.groupIds', '0,1');
+  localStorage.setItem('user.1.email', 'joe@joe.com');
+  localStorage.setItem('user.1.name', 'joe');
+  localStorage.setItem('user.1.groupIds', '0,1');
+  localStorage.setItem('user.2.email', 'terrance@terrance.com');
+  localStorage.setItem('user.2.name', 'terrance');
+  localStorage.setItem('user.2.groupIds', '0,2');
+
+  localStorage.setItem('payment.0.amount', '130.00');
+  localStorage.setItem('payment.0.date', 'January 16, 2016');
+  localStorage.setItem('payment.0.billId', '0');
+  localStorage.setItem('payment.0.userId', '1');
+  localStorage.setItem('payment.1.amount', '30.00');
+  localStorage.setItem('payment.1.date', 'February 28, 2016');
+  localStorage.setItem('payment.1.billId', '1');
+  localStorage.setItem('payment.1.userId', '0');
+  localStorage.setItem('payment.2.amount', '100.00');
+  localStorage.setItem('payment.2.date', 'March 27, 2016');
+  localStorage.setItem('payment.2.billId', '2');
+  localStorage.setItem('payment.2.userId', '2');
+}
+
 // removes all html nested within body element
 function clearScreen() {
   document.body.removeChild(document.querySelector('.screen'));
@@ -132,7 +126,7 @@ function drawSignUpPage() {
   var htmlElements = document.body.innerHTML = templateStrings.signUpPage;
 
   document.body.querySelector('.sign-up-button').addEventListener('click', storeSignUpData);
-  document.body.querySelector('.log-in-button').addEventListener('click', findUserIdWithEmail);
+  document.body.querySelector('.log-in-button').addEventListener('click', logIn);
 }
 
 // Stores name, email, and pw of new user in local storage, then calls
@@ -152,40 +146,26 @@ function storeSignUpData() {
   drawHomepage();
 }
 
-
-// function
-// function LogIn() {
-//   // checks to see whether user email address is associated with a known User ID.
-//   // if it is, logs in and loads homepage with user's associated data
-//   // if not, prompts user to sign up with message
-//   var found = emailExistsInLocalStorage();
-//   if (found === true) {
-//     // assign session.user to
-//     drawHomepage();
-//     // populate username in logout button
-//     var userName = localStorage.getItem('session.user');
-//     htmlStr = htmlStr.replace('{{user-name}}', userName);
-//   }
-//     // populate homepage with user's information??
-//   } else {
-//   }
-// }
+function logIn() {
+  var userEmail = document.querySelector('.log-in-user-email').value;
+  var currentUserId = findUserIdWithEmail(userEmail)
+  if (currentUserId === null) {
+    alert("Your email is not in our database! Please sign up.");
+  } else {
+    localStorage.setItem('session.userId', currentUserId);
+    drawHomepage();
+  }
+}
 
 // user puts in email in log-in field. sessionUserId is determined
-sessionUserId = null;
-function findUserIdWithEmail() {
-  var userEmail = document.querySelector('.log-in-user-email').value;
+function findUserIdWithEmail(email) {
   for (var i = 0; i < Infinity; i++) {
     var key = 'user.' + i + '.email';
     var value = localStorage.getItem(key);
-    if (userEmail === value) {
-      sessionUserId = i;
-      findAttributesOfSessionUserId();
-      drawHomepage();
-      break;
+    if (email === value) {
+      return i;
     } else if (value === null) {
-      alert("Your email is not in our database! Please sign up.");
-      break;
+      return null;
     }
   }
 }
@@ -200,17 +180,17 @@ function findAttributesOfSessionUserId() {
   var sessionUserGroupIds = localStorage.getItem(sessionUserGroupIdsKey);
 }
 
-// // using sessionUserId  fields on homepage are autopopulated
-// function populateHomepageforSessionUserId() {
-//   // populate username in logout bar
-//   var sessionUserName = localStorage.getItem('sessionUser.name');
-//   htmlStr = htmlStr.replace('{{user-name}}', sessionUserName);
-//
-//   // populate groups
-//   // populate bills
-//   // populate payments
-//   //
-// }
+// using sessionUserId  fields on homepage are autopopulated
+function populateHomepageforSessionUserId() {
+  // populate username in logout bar
+  var sessionUserName = localStorage.getItem('sessionUser.name');
+  htmlStr = htmlStr.replace('{{user-name}}', sessionUserName);
+
+  // populate groups
+  // populate bills
+  // populate payments
+  //
+}
 
 // sets up generic homepage
 function drawHomepage() {
@@ -229,14 +209,6 @@ function logOut() {
   clearScreen();
   localStorage.removeItem('session.known');
   document.body.innerHTML = templateStrings.logOutPage;
-}
-
-// check whether user has signed up already.  if so, go directly to homepage
-var isKnownUser = localStorage.getItem('session.known');
-if (isKnownUser === 'true') {
-  drawHomepage();
-} else {
-  drawSignUpPage();
 }
 
 // Return the number of the type of model specified.
@@ -303,5 +275,9 @@ function findAllBillsForUser(user) {
   return bills;
 }
 
-// populate local storage when loading page
-populateLocalStorage();
+// check whether user has signed up already.  if so, go directly to homepage
+if (localStorage.getItem('session.userId') === null) {
+  drawSignUpPage();
+} else {
+  drawHomepage();
+}
