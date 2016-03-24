@@ -1,13 +1,11 @@
 var templateStrings = {
   signUpPage: '\
-    <div class="screen">\
+    <div>\
       <div class="sign-up-segment">\
         <div>My name is...</div>\
-        <input class="user-name" type="text">\
+        <input class="sign-up-user-name" type="text">\
         <div>My email is...</div>\
         <input class="sign-up-user-email" type="text">\
-        <div>My password is...</div>\
-        <input class="user-password" type="text">\
         <button class="sign-up-button front-page-button">sign up</button>\
       </div>\
       <div class="log-in-segment">\
@@ -48,7 +46,7 @@ var templateStrings = {
         <div>YOU ARE OWED item</div>\
       </div>',
     main: '\
-      <div class="screen">\
+      <div>\
         <div class="header">\
           <div>splitwise</div>\
           <div class="session-owner">logout from {{user-name}}</div>\
@@ -69,7 +67,7 @@ var templateStrings = {
       </div>'
   },
   logOutPage: '\
-    <div class="screen">\
+    <div>\
       <div>goodbye</div>\
     </div>'
 };
@@ -118,32 +116,60 @@ function populateLocalStorage() {
 
 // removes all html nested within body element
 function clearScreen() {
-  document.body.removeChild(document.querySelector('.screen'));
+  document.body.innerHTML = '';
 }
 
 // sets up Sign Up Page for new users
 function drawSignUpPage() {
-  var htmlElements = document.body.innerHTML = templateStrings.signUpPage;
+  document.body.innerHTML = templateStrings.signUpPage;
 
-  document.body.querySelector('.sign-up-button').addEventListener('click', storeSignUpData);
+  document.body.querySelector('.sign-up-button').addEventListener('click', signUp);
   document.body.querySelector('.log-in-button').addEventListener('click', logIn);
 }
 
 // Stores name, email, and pw of new user in local storage, then calls
 // drawHomepage to move user to homepage
-function storeSignUpData() {
-  var userName = document.querySelector('.user-name').value;
-  localStorage.setItem('session.user', userName);
+function signUp() {
+  if (!signUpInfoIsValid()) {
+    alert('shits not valid, bra');
+    return;
+  }
+
+  var newUserId = createUser();
+  localStorage.setItem('session.userId', newUserId);
+  drawHomepage();
+}
+
+function signUpInfoIsValid() {
+  var userName = document.querySelector('.sign-up-user-name').value;
+  if (userName.length === 0) {
+    return false;
+  }
 
   var userEmail = document.querySelector('.sign-up-user-email').value;
-  localStorage.setItem('session.email', userEmail);
+  if (userEmail.length === 0) {
+    return false;
+  }
 
-  var userPassword = document.querySelector('.user-password').value;
-  localStorage.setItem('session.password', userPassword);
+  if (userEmail.indexOf('@') === -1 || userEmail.indexOf('.') === -1) {
+    return false;
+  }
 
-  localStorage.setItem('session.known', 'true')
+  return findUserIdWithEmail(userEmail) === null;
+}
 
-  drawHomepage();
+function createUser() {
+  var newUserId = getModelCount('user');
+
+  var userName = document.querySelector('.sign-up-user-name').value;
+  localStorage.setItem('user.' + newUserId + '.name', userName);
+
+  var userEmail = document.querySelector('.sign-up-user-email').value;
+  localStorage.setItem('user.' + newUserId + '.email', userEmail);
+
+  localStorage.setItem('user.' + newUserId + '.groupIds', '');
+
+  return newUserId;
 }
 
 function logIn() {
@@ -213,7 +239,7 @@ function logOut() {
 
 // Return the number of the type of model specified.
 // For example, if there are two bills in local storage, then...
-//   getModelCount('bills') ==> 2
+//   getModelCount('bill') ==> 2
 function getModelCount(modelType) {
   var numModels = 0;
   for (var i = 0; i < Infinity; i++) {
@@ -230,10 +256,10 @@ function getModelCount(modelType) {
 
 // return bill if it belongs to user, otherwise, reject user's attempt
 function findBillWithIdForUser(id, user) {
-  var amountKey = 'bills.' + id + '.amount';
-  var dateKey = 'bills.' + id + '.date';
-  var groupIdKey = 'bills.' + id + '.groupId';
-  var nameKey = 'bills.' + id + '.name';
+  var amountKey = 'bill.' + id + '.amount';
+  var dateKey = 'bill.' + id + '.date';
+  var groupIdKey = 'bill.' + id + '.groupId';
+  var nameKey = 'bill.' + id + '.name';
 
   var groupIdOfBill = parseInt(localStorage.getItem(groupIdKey));
   var userCanAccessBill = itemExistsInArray(groupIdOfBill, user.groupIds);
