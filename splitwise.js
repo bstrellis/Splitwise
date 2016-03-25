@@ -1,4 +1,11 @@
+// TODO THIS COMMIT
+// friends populates based on groups
+// TODO THIS COMMIT
+// add a bill
+
 var templateStrings = {
+  group: '<div>{{group-name}}</div>',
+
   signUpPage: '\
     <div>\
       <div class="sign-up-segment">\
@@ -56,7 +63,7 @@ var templateStrings = {
             <div>dashboard</div>\
             <div>recent activity</div>\
             <div>all expenses</div>\
-            <div>groups</div>\
+            <div class="groups">groups</div>\
             <div>friends</div>\
           </div>\
           <div class="console">\
@@ -114,12 +121,10 @@ function populateLocalStorage() {
   localStorage.setItem('payment.2.userId', '2');
 }
 
-// removes all html nested within body element
 function clearScreen() {
   document.body.innerHTML = '';
 }
 
-// sets up Sign Up Page for new users
 function drawSignUpPage() {
   document.body.innerHTML = templateStrings.signUpPage;
 
@@ -127,8 +132,6 @@ function drawSignUpPage() {
   document.body.querySelector('.log-in-button').addEventListener('click', logIn);
 }
 
-// Stores name, email, and pw of new user in local storage, then calls
-// drawHomepage to move user to homepage
 function signUp() {
   if (!signUpInfoIsValid()) {
     alert('shits not valid, bra');
@@ -183,7 +186,6 @@ function logIn() {
   }
 }
 
-// user puts in email in log-in field. sessionUserId is determined
 function findUserIdWithEmail(email) {
   for (var i = 0; i < Infinity; i++) {
     var key = 'user.' + i + '.email';
@@ -196,44 +198,52 @@ function findUserIdWithEmail(email) {
   }
 }
 
-// find all attributes of sessionUserId
+// function findAttributesOfSessionUserId() {
+//   var sessionUserNameKey = 'user.' + sessionUserId + '.name';
+//   var sessionUserName = localStorage.getItem(sessionUserNameKey);
+//
+//   var sessionUserGroupIdsKey = 'user.' + sessionUserId + '.groupIds';
+//   var sessionUserGroupIds = localStorage.getItem(sessionUserGroupIdsKey);
+// }
 
-function findAttributesOfSessionUserId() {
-  var sessionUserNameKey = 'user.' + sessionUserId + '.name';
-  var sessionUserName = localStorage.getItem(sessionUserNameKey);
-
-  var sessionUserGroupIdsKey = 'user.' + sessionUserId + '.groupIds';
-  var sessionUserGroupIds = localStorage.getItem(sessionUserGroupIdsKey);
-}
-
-// using sessionUserId  fields on homepage are autopopulated
-function populateHomepageforSessionUserId() {
-  // populate username in logout bar
-  var sessionUserName = localStorage.getItem('sessionUser.name');
-  htmlStr = htmlStr.replace('{{user-name}}', sessionUserName);
-
-  // populate groups
-  // populate bills
-  // populate payments
-  //
-}
-
-// sets up generic homepage
 function drawHomepage() {
   // clearScreen();
 
   var htmlStr = templateStrings.homePage.main;
   htmlStr = htmlStr.replace('{{console-content}}', templateStrings.homePage.dashboard);
 
-  var homepageElements = document.body.innerHTML = htmlStr;
+  currentUserId = parseInt(localStorage.getItem('session.userId'));
+  var sessionUserName = localStorage.getItem('user.' + currentUserId + '.name');
+  htmlStr = htmlStr.replace('{{user-name}}', sessionUserName);
+
+  document.body.innerHTML = htmlStr;
+
+  // create div for each group the user belongs to
+  var groupIds = localStorage.getItem('user.' + currentUserId + '.groupIds');
+  if (groupIds.length !== 0) {
+    groupIds = groupIds.split(',');
+    for (var i = 0; i < groupIds.length; i++) {
+      var groupName = localStorage.getItem('group.' + i + '.name');
+      var groupStr = templateStrings.group;
+      groupStr = groupStr.replace('{{group-name}}', groupName);
+      var groupsContainer = document.querySelector('.groups');
+      groupsContainer.innerHTML += groupStr;
+    }
+  }
+
+  // populate total balance, you are owed, and you owe fields
+  // var
+
 
   document.body.querySelector('.session-owner').addEventListener('click', logOut);
+
+  populateHomepageForUser();
 }
 
 // logs user out of homepage and takes them to signed out page
 function logOut() {
   clearScreen();
-  localStorage.removeItem('session.known');
+  localStorage.removeItem('session.userId');
   document.body.innerHTML = templateStrings.logOutPage;
 }
 
@@ -243,7 +253,11 @@ function logOut() {
 function getModelCount(modelType) {
   var numModels = 0;
   for (var i = 0; i < Infinity; i++) {
-    var key = modelType + '.' + i + '.id';
+    if (modelType === 'bill' || modelType === 'user' || modelType === 'group') {
+      var key = modelType + '.' + i + '.name';
+    } else {
+      var key = modelType + '.' + i + '.amount';
+    }
     var value = localStorage.getItem(key);
     if (value === null) {
       break;
