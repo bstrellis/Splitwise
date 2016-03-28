@@ -1,0 +1,173 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+/**********************/
+/*                    */
+/*   setSignUpPage    */
+/*                    */
+/**********************/
+.front-page-button {
+  height: 50px;
+  height: 50px;
+}
+
+.sign-up-button {
+  background-color: green;
+}
+
+.log-in-button {
+  background-color: blue;
+}
+
+/********************/
+/*                  */
+/*   setHomepage    */
+/*                  */
+/********************/
+.header {
+  display: flex;
+  justify-content: space-around;
+  background-color: lightgreen;
+  height: 30px;
+  width: 100%;
+}
+
+.current-user-name {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  background-color: lightgreen;
+  color: white;
+}
+
+.session-owner {}
+
+.homepage {
+  display: flex;
+}
+
+.navigation {
+  background-color: lightgray;
+  height: 100%;
+  width: 25%;
+}
+
+.console {
+  height: 100%;
+  position: relative;
+  width: 50%;
+}
+
+.console-shelf {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  z-index: -1;
+}
+
+.dashboard-button {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  text-transform: capitalize;
+}
+
+.add-bill-button {
+  background-color: orange;
+}
+
+.settle-up-button {
+  background-color: lightgreen;
+}
+.ad-space {
+  background-color: gray;
+  height: 100%;
+  width: 25%;
+}
+
+/*****************/
+/*               */
+/*   add-a-bill   */
+/*               */
+/*****************/
+.add-bill-form {
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 5px;
+  display: none;
+  flex-direction: column;
+  height: 400px;
+  left: 30px;
+  position: absolute;
+  top: 100px;
+  width: 350px;
+  z-index: 1;
+}
+
+.add-bill__header {
+  background-color: lightgreen;
+}
+
+.add-bill__select-friends {
+  display: flex;
+  border-bottom: 1px solid gray;
+}
+
+.add-bill__description {
+  display: flex;
+}
+
+.add-bill__description--icon {
+  background-color: black;
+  height: 120px;
+  width: 120px;
+}
+
+.add-bill__description--input {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px dashed lightgray;
+}
+
+.add-bill__description--input-button {
+
+}
+
+.add-bill__paid-by {
+  border-bottom: 1px dashed lightgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-bill__additional-options {
+  border-bottom: 1px dashed lightgray;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hidden {
+  display: none;
+}
+
+.add-bill__additional-options--button {
+  background-color: lightgray;
+  border: 1px solid gray;
+  border-radius: 8px;
+}
+
+.add-bill__cancel-or-save {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-bill__cancel {
+  background-color: lightgray;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.add-bill__save {
+  background-color: lightgreen;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
