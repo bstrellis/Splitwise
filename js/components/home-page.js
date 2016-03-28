@@ -84,6 +84,10 @@ var drawHomepage = (function () {
     document.body.querySelector('.add-bill__cancel').addEventListener('click', hideAddABill);
     document.body.querySelector('.add-bill__choose-group-form').addEventListener('click', showChooseGroupForm);
     document.body.querySelector('.ex-out-of-group-form').addEventListener('click', hideChooseGroupForm);
+    var groupChoiceEls = document.body.querySelectorAll('.group-choice');
+    for (var i = 0; i < groupChoiceEls.length; i++) {
+      groupChoiceEls[i].addEventListener('click', setGroup);
+    }
   }
 
   function showAddABill() {
@@ -101,6 +105,11 @@ var drawHomepage = (function () {
 
   function hideChooseGroupForm() {
     document.querySelector('.choose-group-form').style.display = "none";
+  }
+
+  function setGroup() {
+    document.body.innerHTML = document.body.innerHTML.replace('choose group', this.innerHTML);
+    hideChooseGroupForm();
   }
 
   function getCurrentUserName() {
