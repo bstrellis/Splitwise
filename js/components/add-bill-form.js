@@ -25,8 +25,7 @@ var drawAddABill = (function () {
       <div class="add-bill__additional-options">\
         <button class="add-bill__additional-options--button">march 25, 2016</button>\
         <button class="add-bill__additional-options--button">add image or notes</button>\
-        <button class="add-bill__additional-options--button">choose group</button>\
-        <div class="hidden">{{choose-group}}<div>\
+        <button class="add-bill__additional-options--button add-bill__choose-group-form">choose group</button>\
       </div>\
       <div class="add-bill__cancel-or-save">\
         <button class="add-bill__cancel">cancel</button>\
@@ -38,7 +37,7 @@ var drawAddABill = (function () {
   // draws add a bill form
   function drawAddABill () {
     document.body.innerHTML = document.body.innerHTML.replace('{{add-bill}}', templateStr.main);
-    document.querySelector('.add-bill__cancel').addEventListener('click', drawHomepage);
+    document.querySelector('.add-bill__choose-group-form').addEventListener('click', drawChooseGroupForm);
   }
   return drawAddABill;
 })();

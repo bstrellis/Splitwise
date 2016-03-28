@@ -104,7 +104,10 @@ body {
 }
 
 .add-bill__header {
+  align-items: center;
+  display: flex;
   background-color: lightgreen;
+  justify-content: space-between;
 }
 
 .add-bill__select-friends {
@@ -143,10 +146,19 @@ body {
   border-bottom: 1px dashed lightgray;
   display: flex;
   flex-wrap: wrap;
+  position: relative;
 }
 
-.hidden {
+.choose-group-form {
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 5px;
   display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 100px;
+  left: 400px;
+  width: 200px;
 }
 
 .add-bill__additional-options--button {
@@ -170,4 +182,13 @@ body {
   background-color: lightgreen;
   border: 1px solid gray;
   border-radius: 5px;
+}
+
+.ex-out-of-group-form {
+  background-color: lightgreen;
+  background-image: url('iconmonstr-x-mark-1-240.png');
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  height: 30px;
+  width: 30px;
 }

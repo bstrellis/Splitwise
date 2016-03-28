@@ -16,24 +16,6 @@ function getModelCount(modelType) {
   return numModels;
 }
 
-function getModelCount(modelType) {
-  var numModels = 0;
-  for (var i = 0; i < Infinity; i++) {
-    if (modelType === 'bill' || modelType === 'user' || modelType === 'group') {
-      var key = modelType + '.' + i + '.name';
-    } else {
-      var key = modelType + '.' + i + '.amount';
-    }
-    var value = localStorage.getItem(key);
-    if (value === null) {
-      break;
-    } else {
-      numModels++;
-    }
-  }
-  return numModels;
-}
-
 // return bill if it belongs to user, otherwise, reject user's attempt
 function findBillWithIdForUser(id, user) {
   var amountKey = 'bill.' + id + '.amount';

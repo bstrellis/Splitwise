@@ -2,6 +2,7 @@ var drawHomepage = (function () {
   var templateStrs = {
     dashboard: '\
       {{add-bill}}\
+      <div class="choose-group-form">{{choose-group-form}}\</div>\
       <div class="console-shelf">\
         <div>dashboard</div>\
         <button class="add-bill-button dashboard-button">Add a Bill</button>\
@@ -30,8 +31,6 @@ var drawHomepage = (function () {
         <div>YOU OWE item</div>\
         <div>YOU ARE OWED item</div>\
       </div>',
-
-    group: '<div>{{group-name}}</div>',
 
     friend: '<div class="friend">{{friend-name}}</div>',
 
@@ -76,37 +75,37 @@ var drawHomepage = (function () {
     //draw addabill, but it is hidden until click event makes it visible
     drawAddABill();
 
+    //drawChooseGroupForm, but it is hidden until click event makes it visible
+    drawChooseGroupForm();
+
     // Finally, set up bindings.
     document.body.querySelector('.current-user-name').addEventListener('click', logOut);
     document.body.querySelector('.add-bill-button').addEventListener('click', showAddABill);
+    document.body.querySelector('.add-bill__cancel').addEventListener('click', hideAddABill);
+    document.body.querySelector('.add-bill__choose-group-form').addEventListener('click', showChooseGroupForm);
+    document.body.querySelector('.ex-out-of-group-form').addEventListener('click', hideChooseGroupForm);
   }
 
   function showAddABill() {
     document.querySelector('.add-bill-form').style.display = "flex";
   }
 
+  function hideAddABill() {
+    document.querySelector('.add-bill-form').style.display = "none";
+    hideChooseGroupForm();
+  }
+
+  function showChooseGroupForm() {
+    document.querySelector('.choose-group-form').style.display = "flex";
+  }
+
+  function hideChooseGroupForm() {
+    document.querySelector('.choose-group-form').style.display = "none";
+  }
+
   function getCurrentUserName() {
     var currentUserId = parseInt(localStorage.getItem('session.userId'));
     return localStorage.getItem('user.' + currentUserId + '.name');
-  }
-
-  function buildGroupListHtmlStr() {
-    currentUserId = parseInt(localStorage.getItem('session.userId'));
-    var currentUserGroupIds = localStorage.getItem('user.' + currentUserId + '.groupIds');
-    if (currentUserGroupIds.length === 0) {
-      return '';
-    }
-
-    var groupListHtmlStr = '<div>groups</div>';
-    currentUserGroupIds = currentUserGroupIds.split(',');
-    for (var i = 0; i < currentUserGroupIds.length; i++) {
-      var groupName = localStorage.getItem('group.' + i + '.name');
-      var groupStr = templateStrs.group;
-      groupStr = groupStr.replace('{{group-name}}', groupName);
-      groupListHtmlStr += groupStr;
-    }
-
-    return groupListHtmlStr;
   }
 
   function buildFriendListHtmlStr() {
