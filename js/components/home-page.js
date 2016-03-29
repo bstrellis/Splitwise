@@ -1,43 +1,8 @@
 var drawHomepage = (function () {
   var templateStrs = {
-    dashboard: '\
-      {{add-bill}}\
-      <div class="choose-group-form">{{choose-group-form}}\</div>\
-      <div class="console-shelf">\
-        <div>dashboard</div>\
-        <button class="add-bill-button dashboard-button">Add a Bill</button>\
-        <button class="settle-up-button dashboard-button">settle up</button>\
-      </div>\
-      <div class="console-shelf">\
-        <div>\
-          <div>total balance</div>\
-          <div>$90</div>\
-        </div>\
-        <div>\
-          <div>you owe</div>\
-          <div>$90</div>\
-        </div>\
-        <div>\
-          <div>you are owed</div>\
-          <div>$90</div>\
-        </div>\
-      </div>\
-      <div class="console-shelf">\
-        <div>YOU OWE</div>\
-        <div>listchart</div>\
-        <div>YOU ARE OWED</div>\
-      </div>\
-      <div class="console-shelf">\
-        <div>YOU OWE item</div>\
-        <div>YOU ARE OWED item</div>\
-      </div>',
-
     friend: '<div class="friend">{{friend-name}}</div>',
 
-    logOutPage: '\
-      <div>\
-        <div>goodbye</div>\
-      </div>',
+
 
     main: '\
       <div>\
@@ -64,13 +29,14 @@ var drawHomepage = (function () {
   function drawHomepage() {
     // First, build the HTML string.
     var htmlStr = templateStrs.main
-      .replace('{{console-content}}', templateStrs.dashboard)
       .replace('{{user-name}}', getCurrentUserName())
       .replace('{{group-list}}', buildGroupListHtmlStr())
       .replace('{{friend-list}}', buildFriendListHtmlStr());
 
     // Then, add the HTML string to the DOM.
     document.body.innerHTML = htmlStr;
+
+    drawDashboard();
 
     //draw addabill, but it is hidden until click event makes it visible
     drawAddABill();
@@ -150,10 +116,5 @@ var drawHomepage = (function () {
     return friendListHtmlStr;
   }
 
-  function logOut() {
-    clearScreen();
-    localStorage.removeItem('session.userId');
-    document.body.innerHTML = templateStrs.logOutPage;
-  }
   return drawHomepage;
 })();

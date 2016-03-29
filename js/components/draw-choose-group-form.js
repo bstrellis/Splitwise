@@ -18,3 +18,5 @@ var drawChooseGroupForm = (function () {
 
   return drawChooseGroupForm;
 })();
+
+// after group is selected, you can't reopen the form and make a new choice
