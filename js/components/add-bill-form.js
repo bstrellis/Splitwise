@@ -39,5 +39,6 @@ var drawAddABill = (function () {
     document.body.innerHTML = document.body.innerHTML.replace('{{add-bill}}', templateStr.main);
     document.querySelector('.add-bill__choose-group-form').addEventListener('click', drawChooseGroupForm);
   }
+  
   return drawAddABill;
 })();

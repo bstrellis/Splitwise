@@ -12,7 +12,7 @@ var drawHomepage = (function () {
         </div>\
         <div class="homepage">\
           <div class="navigation">\
-            <div>dashboard</div>\
+            <div class="nav-dashboard">dashboard</div>\
             <div>recent activity</div>\
             <div>all expenses</div>\
             <div>{{group-list}}</div>\
@@ -20,6 +20,7 @@ var drawHomepage = (function () {
           </div>\
           <div class="console">\
             {{console-content}}\
+            {{group-page}}\
           </div>\
           <div class="ad-space"></div>\
         </div>\
@@ -37,6 +38,7 @@ var drawHomepage = (function () {
     document.body.innerHTML = htmlStr;
 
     drawDashboard();
+    drawGroupPage();
 
     //draw addabill, but it is hidden until click event makes it visible
     drawAddABill();
@@ -45,15 +47,46 @@ var drawHomepage = (function () {
     drawChooseGroupForm();
 
     // Finally, set up bindings.
-    document.body.querySelector('.current-user-name').addEventListener('click', logOut);
-    document.body.querySelector('.add-bill-button').addEventListener('click', showAddABill);
-    document.body.querySelector('.add-bill__cancel').addEventListener('click', hideAddABill);
-    document.body.querySelector('.add-bill__choose-group-form').addEventListener('click', showChooseGroupForm);
-    document.body.querySelector('.ex-out-of-group-form').addEventListener('click', hideChooseGroupForm);
-    var groupChoiceEls = document.body.querySelectorAll('.group-choice');
+    document.querySelector('.current-user-name').addEventListener('click', logOut);
+    document.querySelector('.nav-dashboard').addEventListener('click', showDashboard);
+    document.querySelector('.add-bill__cancel').addEventListener('click', hideAddABill);
+    document.querySelector('.add-bill__choose-group-form').addEventListener('click', showChooseGroupForm);
+    document.querySelector('.ex-out-of-group-form').addEventListener('click', hideChooseGroupForm);
+    // make every add-bill-button a binding
+    var addBillButtonEls = document.querySelectorAll('.add-bill-button');
+    for (var i = 0; i < addBillButtonEls.length; i++) {
+      addBillButtonEls[i].addEventListener('click', showAddABill);
+    }
+    // make every group choice element a binding in choose-group-form
+    var groupChoiceEls = document.querySelectorAll('.group-choice');
     for (var i = 0; i < groupChoiceEls.length; i++) {
       groupChoiceEls[i].addEventListener('click', setGroup);
     }
+    // make every group choice element a binding in nav menu
+    var groupListItemEls = document.querySelectorAll('.group-list-item');
+    for (var i = 0; i < groupListItemEls.length; i++) {
+      groupListItemEls[i].addEventListener('click', showGroupPage);
+    }
+  }
+
+  function showGroupPage() {
+    document.querySelector('.group-page').style.display = "flex";
+    hideDashboard();
+  }
+
+  function hideGroupPage() {
+    document.querySelector('.group-page').style.display = "none";
+    hideChooseGroupForm();
+  }
+
+  function showDashboard() {
+    document.querySelector('.dashboard').style.display = "flex";
+    hideGroupPage();
+  }
+
+  function hideDashboard() {
+    document.querySelector('.dashboard').style.display = "none";
+    hideChooseGroupForm();
   }
 
   function showAddABill() {

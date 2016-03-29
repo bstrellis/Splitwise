@@ -58,11 +58,20 @@ body {
   width: 50%;
 }
 
+/*****************/
+/*               */
+/*   dashboard   */
+/*               */
+/*****************/
+.dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
 .console-shelf {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  z-index: -1;
 }
 
 .dashboard-button {
@@ -100,7 +109,6 @@ body {
   position: absolute;
   top: 100px;
   width: 350px;
-  z-index: 1;
 }
 
 .add-bill__header {
@@ -191,4 +199,20 @@ body {
   background-size: 25px 25px;
   height: 30px;
   width: 30px;
+}
+
+/***********************/
+/*                     */
+/*   draw-group-page   */
+/*                     */
+/***********************/
+
+.group-page {
+  background-color: yellow;
+  display: none;
+  flex-direction: column;
+}
+
+.group-page-header {
+  background-color: lightblue;
 }
