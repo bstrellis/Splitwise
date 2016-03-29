@@ -2,8 +2,6 @@ var drawHomepage = (function () {
   var templateStrs = {
     friend: '<div class="friend">{{friend-name}}</div>',
 
-
-
     main: '\
       <div>\
         <div class="header">\
@@ -19,8 +17,10 @@ var drawHomepage = (function () {
             <div>{{friend-list}}</div>\
           </div>\
           <div class="console">\
-            {{console-content}}\
-            {{group-page}}\
+            <div class="choose-group-form">\</div>\
+            <div class="draw-group-page"></div>\
+            <div class="dashboard"></div>\
+            <div class="hidden-bill-form"></div>\
           </div>\
           <div class="ad-space"></div>\
         </div>\
@@ -38,7 +38,7 @@ var drawHomepage = (function () {
     document.body.innerHTML = htmlStr;
 
     drawDashboard();
-    drawGroupPage();
+    removeGroupPage();
 
     //draw addabill, but it is hidden until click event makes it visible
     drawAddABill();
@@ -48,67 +48,19 @@ var drawHomepage = (function () {
 
     // Finally, set up bindings.
     document.querySelector('.current-user-name').addEventListener('click', logOut);
-    document.querySelector('.nav-dashboard').addEventListener('click', showDashboard);
-    document.querySelector('.add-bill__cancel').addEventListener('click', hideAddABill);
-    document.querySelector('.add-bill__choose-group-form').addEventListener('click', showChooseGroupForm);
-    document.querySelector('.ex-out-of-group-form').addEventListener('click', hideChooseGroupForm);
+    document.querySelector('.nav-dashboard').addEventListener('click', drawDashboard);
+
     // make every add-bill-button a binding
     var addBillButtonEls = document.querySelectorAll('.add-bill-button');
     for (var i = 0; i < addBillButtonEls.length; i++) {
       addBillButtonEls[i].addEventListener('click', showAddABill);
     }
-    // make every group choice element a binding in choose-group-form
-    var groupChoiceEls = document.querySelectorAll('.group-choice');
-    for (var i = 0; i < groupChoiceEls.length; i++) {
-      groupChoiceEls[i].addEventListener('click', setGroup);
-    }
+
     // make every group choice element a binding in nav menu
     var groupListItemEls = document.querySelectorAll('.group-list-item');
     for (var i = 0; i < groupListItemEls.length; i++) {
-      groupListItemEls[i].addEventListener('click', showGroupPage);
+      groupListItemEls[i].addEventListener('click', drawGroupPage);
     }
-  }
-
-  function showGroupPage() {
-    document.querySelector('.group-page').style.display = "flex";
-    hideDashboard();
-  }
-
-  function hideGroupPage() {
-    document.querySelector('.group-page').style.display = "none";
-    hideChooseGroupForm();
-  }
-
-  function showDashboard() {
-    document.querySelector('.dashboard').style.display = "flex";
-    hideGroupPage();
-  }
-
-  function hideDashboard() {
-    document.querySelector('.dashboard').style.display = "none";
-    hideChooseGroupForm();
-  }
-
-  function showAddABill() {
-    document.querySelector('.add-bill-form').style.display = "flex";
-  }
-
-  function hideAddABill() {
-    document.querySelector('.add-bill-form').style.display = "none";
-    hideChooseGroupForm();
-  }
-
-  function showChooseGroupForm() {
-    document.querySelector('.choose-group-form').style.display = "flex";
-  }
-
-  function hideChooseGroupForm() {
-    document.querySelector('.choose-group-form').style.display = "none";
-  }
-
-  function setGroup() {
-    document.body.innerHTML = document.body.innerHTML.replace('choose group', this.innerHTML);
-    hideChooseGroupForm();
   }
 
   function getCurrentUserName() {

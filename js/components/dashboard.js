@@ -1,8 +1,6 @@
 var drawDashboard = (function () {
   var templateStr = '\
-    <div class="dashboard">\
-      {{add-bill}}\
-      <div class="choose-group-form">{{choose-group-form}}\</div>\
+    <div class="dashboardcontainer">\
       <div class="console-shelf">\
         <div>dashboard</div>\
           <button class="add-bill-button dashboard-button">Add a Bill</button>\
@@ -34,7 +32,8 @@ var drawDashboard = (function () {
     </div>';
 
   function drawDashboard () {
-    document.body.innerHTML = document.body.innerHTML.replace('{{console-content}}', templateStr)
+    removeGroupPage();
+    document.querySelector('.dashboard').innerHTML = templateStr;
   }
 
   return drawDashboard;

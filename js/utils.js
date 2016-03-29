@@ -105,6 +105,37 @@ function populateLocalStorage() {
   localStorage.setItem('payment.2.userId', '2');
 }
 
+function removeDashboard () {
+  document.querySelector('.dashboard').innerHTML = '';
+}
+
+function removeGroupPage () {
+  document.querySelector('.draw-group-page').innerHTML = '';
+}
+
 function clearScreen() {
   document.body.innerHTML = '';
+}
+
+function showAddABill() {
+  console.log(`here`); // TODO THIS COMMIT: remove this
+  document.querySelector('.add-bill-form').style.display = "flex";
+}
+
+function hideAddABill() {
+  document.querySelector('.add-bill-form').style.display = "none";
+  hideChooseGroupForm();
+}
+
+function showChooseGroupForm() {
+  document.querySelector('.choose-group-form').style.display = "flex";
+}
+
+function hideChooseGroupForm() {
+  document.querySelector('.choose-group-form').style.display = "none";
+}
+
+function setGroup() {
+  document.querySelector('.add-bill__choose-group-form').innerHTML = this.innerHTML;
+  hideChooseGroupForm();
 }

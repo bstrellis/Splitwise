@@ -1,6 +1,5 @@
 var drawAddABill = (function () {
-  var templateStr = {
-    main: '\
+  var templateStr = '\
     <div class="add-bill-form">\
       <header class="add-bill__header">add a bill</header>\
       <div class="add-bill__select-friends">\
@@ -31,14 +30,15 @@ var drawAddABill = (function () {
         <button class="add-bill__cancel">cancel</button>\
         <button class="add-bill__save">save</button>\
       </div>\
-    </div>',
-  };
+    </div>';
 
   // draws add a bill form
   function drawAddABill () {
-    document.body.innerHTML = document.body.innerHTML.replace('{{add-bill}}', templateStr.main);
+    document.querySelector('.hidden-bill-form').innerHTML = templateStr;
     document.querySelector('.add-bill__choose-group-form').addEventListener('click', drawChooseGroupForm);
+
+    document.querySelector('.add-bill__cancel').addEventListener('click', hideAddABill);
   }
-  
+
   return drawAddABill;
 })();
