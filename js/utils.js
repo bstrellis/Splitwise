@@ -68,18 +68,31 @@ function populateLocalStorage() {
   localStorage.setItem('group.1.name', 'Cali House Trip');
   localStorage.setItem('group.2.name', 'Yosemite Camping Trip');
 
-  localStorage.setItem('bill.0.amount', '140.00');
-  localStorage.setItem('bill.0.date', 'January 13, 2016');
-  localStorage.setItem('bill.0.name', 'cheetos');
+  localStorage.setItem('bill.0.amount', '100.00');
+  localStorage.setItem('bill.0.date', 'January 15, 2016');
+  localStorage.setItem('bill.0.name', 'boxes');
   localStorage.setItem('bill.0.groupId', '0');
-  localStorage.setItem('bill.1.amount', '7.00');
-  localStorage.setItem('bill.1.date', 'February 3, 2016');
-  localStorage.setItem('bill.1.name', 'corn pops');
-  localStorage.setItem('bill.1.groupId', '1');
-  localStorage.setItem('bill.2.amount', '80.00');
-  localStorage.setItem('bill.2.date', 'March 22, 2016');
-  localStorage.setItem('bill.2.name', 'condoms');
-  localStorage.setItem('bill.2.groupId', '2');
+  localStorage.setItem('bill.1.amount', '140.00');
+  localStorage.setItem('bill.1.date', 'January 13, 2016');
+  localStorage.setItem('bill.1.name', 'cheetos');
+  localStorage.setItem('bill.1.groupId', '0');
+  localStorage.setItem('bill.2.amount', '9.00');
+  localStorage.setItem('bill.2.date', 'February 4, 2016');
+  localStorage.setItem('bill.2.name', 'count chocula');
+  localStorage.setItem('bill.2.groupId', '1');
+  localStorage.setItem('bill.3.amount', '7.00');
+  localStorage.setItem('bill.3.date', 'February 3, 2016');
+  localStorage.setItem('bill.3.name', 'corn pops');
+  localStorage.setItem('bill.3.groupId', '1');
+  localStorage.setItem('bill.4.amount', '80.00');
+  localStorage.setItem('bill.4.date', 'March 22, 2016');
+  localStorage.setItem('bill.4.name', 'condoms');
+  localStorage.setItem('bill.4.groupId', '2');
+  localStorage.setItem('bill.5.amount', '75.00');
+  localStorage.setItem('bill.5.date', 'March 24, 2016');
+  localStorage.setItem('bill.5.name', 'chocolate');
+  localStorage.setItem('bill.5.groupId', '2');
+
 
   localStorage.setItem('user.0.email', 'bob@bob.com');
   localStorage.setItem('user.0.name', 'bob');
@@ -118,7 +131,6 @@ function clearScreen() {
 }
 
 function showAddABill() {
-  console.log(`here`); // TODO THIS COMMIT: remove this
   document.querySelector('.add-bill-form').style.display = "flex";
 }
 
