@@ -34,6 +34,11 @@ var drawDashboard = (function () {
   function drawDashboard () {
     removeGroupPage();
     document.querySelector('.dashboard').innerHTML = templateStr;
+
+    var addBillButtonEls = document.querySelectorAll('.add-bill-button');
+    for (var i = 0; i < addBillButtonEls.length; i++) {
+      addBillButtonEls[i].addEventListener('click', showAddABill);
+    }
   }
 
   return drawDashboard;

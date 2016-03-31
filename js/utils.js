@@ -151,3 +151,41 @@ function setGroup() {
   document.querySelector('.add-bill__choose-group-form').innerHTML = this.innerHTML;
   hideChooseGroupForm();
 }
+
+function saveBill () {
+  var newBillIndex = getModelCount('bill');
+
+  var chosenGroupNameStr = document.querySelector('.add-bill__choose-group-form').innerHTML;
+  for ( i = 0; i < getModelCount('group'); i++) {
+    if (chosenGroupNameStr === localStorage.getItem('group.' + i + '.name')) {
+      var chosenGroupId = i;
+      break;
+    }
+  }
+
+  var newBillName = document.querySelector('.add-bill__description--input-button').value
+  var newBillDate = document.querySelector('.add-bill__date--input-button').value
+  var newBillAmount = document.querySelector('.add-bill__amount--input-button').value
+
+  if (newBillName === 'bill description') {
+    alert('Describe your bill! Fill in the bill description.');
+  } else if (newBillDate === 'date') {
+    alert('When was this purchase made? Fill in the date!');
+  } else if (newBillAmount === 'bill amount') {
+    alert('What was the amount of this purchase? Fill in the bill amount!')
+  } else if (chosenGroupId === undefined) {
+      alert('Choose a group!');
+  } else {
+    localStorage.setItem('bill.' + newBillIndex + '.groupId', chosenGroupId);
+    localStorage.setItem('bill.' + newBillIndex + '.name', newBillName);
+    localStorage.setItem('bill.' + newBillIndex + '.date', newBillDate);
+    localStorage.setItem('bill.' + newBillIndex + '.amount', newBillAmount);
+
+    document.querySelector('.add-bill__choose-group-form').innerHTML = 'choose group';
+    document.querySelector('.add-bill__description--input-button').value = 'bill description';
+    document.querySelector('.add-bill__date--input-button').value = 'date';
+    document.querySelector('.add-bill__amount--input-button').value = 'bill amount'
+
+    hideAddABill();
+  }
+}

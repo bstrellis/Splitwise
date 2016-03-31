@@ -50,12 +50,6 @@ var drawHomepage = (function () {
     document.querySelector('.current-user-name').addEventListener('click', logOut);
     document.querySelector('.nav-dashboard').addEventListener('click', drawDashboard);
 
-    // make every add-bill-button a binding
-    var addBillButtonEls = document.querySelectorAll('.add-bill-button');
-    for (var i = 0; i < addBillButtonEls.length; i++) {
-      addBillButtonEls[i].addEventListener('click', showAddABill);
-    }
-
     // make every group choice element a binding in nav menu
     var groupListItemEls = document.querySelectorAll('.group-list-item');
     for (var i = 0; i < groupListItemEls.length; i++) {
