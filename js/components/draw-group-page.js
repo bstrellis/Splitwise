@@ -18,8 +18,7 @@ var drawGroupPage = (function () {
     drawAddABill();
     drawChooseGroupForm();
 
-    billItemStr = '\
-      <li class="bill-item">bill item</li>';
+
 
     var chosenGroupNameStr = this.innerHTML;
     for ( i = 0; i < getModelCount('group'); i++) {
@@ -31,8 +30,16 @@ var drawGroupPage = (function () {
 
     var billItemsStr = '';
     for (j = 0; j < getModelCount('bill'); j++) {
+      billItemStr = '\
+        <li class="bill-item">\
+          <div class="bill-date">{{bill date}}</div>\
+          <div class="bill-name">{{bill name}}</div>\
+          <div class="bill-amount">{{bill amount}}</div>\
+        </li>';
       if (parseInt(localStorage.getItem('bill.' + j + '.groupId')) === chosenGroupId) {
-        // populateBillInfo
+        billItemStr = billItemStr.replace('{{bill date}}', localStorage.getItem('bill.' + j + '.date'));
+        billItemStr = billItemStr.replace('{{bill name}}', localStorage.getItem('bill.' + j + '.name'));
+        billItemStr = billItemStr.replace('{{bill amount}}', localStorage.getItem('bill.' + j + '.amount'));
         billItemsStr += billItemStr;
       }
     }
