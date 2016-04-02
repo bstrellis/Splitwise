@@ -1,20 +1,62 @@
 var drawHomepage = (function () {
   var templateStrs = {
-    friend: '<div class="friend">{{friend-name}}</div>',
+    friend: '\
+      <div class="friend">\
+        <div class="friend-list-icon"></div>\
+      {{friend-name}}\
+      </div>',
 
     main: '\
       <div>\
         <div class="header">\
-          <div>splitwise</div>\
-          <button class="current-user-name">logout from {{user-name}}</button>\
+          <div class="header-splitwise">\
+            <div class="letter">s</div>\
+            <div class="letter">p</div>\
+            <div class="letter">l</div>\
+            <div class="letter">i</div>\
+            <div class="letter">t</div>\
+            <div class="letter">w</div>\
+            <div class="letter">i</div>\
+            <div class="letter">s</div>\
+            <div class="letter">e</div>\
+          </div>\
+          <button class="current-user-name">\
+            <div class="header-icon"></div>\
+            {{user-name}}\
+            <div class="header-arrow"></div>\
+          </button>\
         </div>\
         <div class="homepage">\
           <div class="navigation">\
-            <div class="nav-dashboard">dashboard</div>\
-            <div>recent activity</div>\
-            <div>all expenses</div>\
-            <div>{{group-list}}</div>\
-            <div>{{friend-list}}</div>\
+            <div class="nav-dashboard">\
+              <div class="colored-column"></div>\
+              <div class="dashboard-icon"></div>\
+            dashboard</div>\
+            <div class="recent-activity">\
+              <div class="recent-activity__icon"></div>\
+            Recent activity\
+            </div>\
+            <div class="all-expenses">\
+              <div class="all-expenses__icon"></div>\
+            All expenses\
+            </div>\
+            <div class="group-pages">\
+              <div class="list-header">groups\
+                <div class="group-list-stuff">\
+                  <div class="group-list-header__icon"></div>\
+                  <div class="add">add</div>\
+                </div>\
+              </div>\
+            {{group-list}}</div>\
+            <div>\
+              <div class="list-header">friends\
+                <div class="group-list-stuff">\
+                  <div class="group-list-header__icon"></div>\
+                  <div class="add">add</div>\
+                </div>\
+              </div>\
+            {{friend-list}}\
+            </div>\
           </div>\
           <div class="console">\
             <div class="choose-group-form">\</div>\
@@ -65,7 +107,7 @@ var drawHomepage = (function () {
   function buildFriendListHtmlStr() {
     currentUserId = parseInt(localStorage.getItem('session.userId'));
     var currentUserGroupIds = localStorage.getItem('user.' + currentUserId + '.groupIds');
-    var friendListHtmlStr = '<div>friends</div>';
+    var friendListHtmlStr = '';
 
     currentUserId = parseInt(localStorage.getItem('session.userId'));
     var userIdsAlreadyAdded = [];

@@ -95,13 +95,13 @@ function populateLocalStorage() {
 
 
   localStorage.setItem('user.0.email', 'bob@bob.com');
-  localStorage.setItem('user.0.name', 'bob');
+  localStorage.setItem('user.0.name', 'bob thompson');
   localStorage.setItem('user.0.groupIds', '0,1');
   localStorage.setItem('user.1.email', 'joe@joe.com');
-  localStorage.setItem('user.1.name', 'joe');
+  localStorage.setItem('user.1.name', 'joe makamakahule');
   localStorage.setItem('user.1.groupIds', '0,1');
   localStorage.setItem('user.2.email', 'terrance@terrance.com');
-  localStorage.setItem('user.2.name', 'terrance');
+  localStorage.setItem('user.2.name', 'terrance the grifter');
   localStorage.setItem('user.2.groupIds', '0,2');
 
   localStorage.setItem('payment.0.amount', '130.00');
@@ -155,7 +155,7 @@ function setGroup() {
 function saveBill () {
   var newBillIndex = getModelCount('bill');
 
-  var chosenGroupNameStr = document.querySelector('.add-bill__choose-group-form').innerHTML;
+  var chosenGroupNameStr = document.querySelector('.add-bill__choose-group-form').innerText;
   for ( i = 0; i < getModelCount('group'); i++) {
     if (chosenGroupNameStr === localStorage.getItem('group.' + i + '.name')) {
       var chosenGroupId = i;

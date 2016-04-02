@@ -1,5 +1,9 @@
 var buildGroupListHtmlStr = (function () {
-  var templateStr = '<div class="group-list-item">{{group-name}}</div>';
+  var templateStr = '\
+    <div class="group-list-item">\
+    <div class="group-list-icon"></div>\
+    {{group-name}}\
+    </div>';
 
   function buildGroupListHtmlStr() {
     currentUserId = parseInt(localStorage.getItem('session.userId'));
